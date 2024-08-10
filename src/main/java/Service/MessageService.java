@@ -30,7 +30,14 @@ public class MessageService {
         return messageDAO.getAllMessages();
     }
 
-    
+    /**
+     * 
+     * @param message_id of the message
+     * @return the message with the message_id, else return empty message
+     */
+    public Message getMessageByID(int message_id){
+        return messageDAO.getMessageByID(message_id);
+    }
 
 
 

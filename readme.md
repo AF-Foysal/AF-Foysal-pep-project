@@ -72,15 +72,15 @@ As a user, I should be able to submit a GET request on the endpoint GET localhos
 - [x] Service Function
 - [x] Controller Endpoint
 
-## 5: Our API should be able to retrieve a message by its ID. (Incomplete)
+## 5: Our API should be able to retrieve a message by its ID. (Complete)
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages/{message_id}.
 
 - The response body should contain a JSON representation of the message identified by the message_id. It is expected for the response body to simply be empty if there is no such message. The response status should always be 200, which is the default.
 
-- [ ] DAO Function
-- [ ] Service Function
-- [ ] Controller Endpoint
+- [x] DAO Function
+- [x] Service Function
+- [x] Controller Endpoint
 
 ## 6: Our API should be able to delete a message identified by a message ID. (Incomplete)
 

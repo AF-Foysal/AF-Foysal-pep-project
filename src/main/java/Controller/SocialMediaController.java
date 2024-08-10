@@ -38,6 +38,7 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler);
         app.get("/messages", this::getAllMessagesHandler);
+        app.get("/messages/{message_id}", this::getMessageByIDHandler);
 
 
 
@@ -56,9 +57,26 @@ public class SocialMediaController {
      * Handler to retrieve all messages.
      * @param context the context object 
      */
-    public void getAllMessagesHandler(Context context){
+    private void getAllMessagesHandler(Context context){
         List<Message> messages = messageService.getAllMessages();
         context.json(messages);
+    }
+
+    /**
+     * Handler to retrieve message based on message_id
+     * If message does NOT exist, output an empty response body
+     * @param context the context object
+     */
+    private void getMessageByIDHandler(Context context){
+
+        Message message = messageService.getMessageByID(Integer.valueOf(context.pathParam("message_id")));
+
+        if (message == null){
+            context.json("");
+        }
+        else{
+            context.json(message);
+        }
     }
 
 
