@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessageDAO {
+
     /**
      * @return all Messages
      */
-
      public List<Message> getAllMessages(){
         
         List<Message> messages = new ArrayList<>();
@@ -75,6 +75,34 @@ public class MessageDAO {
         return null;
      }
 
+     /**
+     * @return all Messages sent by account_id
+     */
+    public List<Message> getAllMessagesByAccountID(int account_id){
+        
+        List<Message> messages = new ArrayList<>();
+
+        try (Connection connection = ConnectionUtil.getConnection();) {
+            String sql = "SELECT * FROM message INNER JOIN account ON message.posted_by = account.account_id WHERE account.account_id=?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, account_id);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()){
+                Message message = new Message(
+                    rs.getInt("message.message_id"),
+                    rs.getInt("message.posted_by"),
+                    rs.getString("message.message_text"),
+                    rs.getLong("message.time_posted_epoch")
+                );
+                messages.add(message);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return messages;
+     }
 
 
 

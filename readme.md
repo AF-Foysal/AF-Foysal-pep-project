@@ -104,15 +104,15 @@ As a user, I should be able to submit a PATCH request on the endpoint PATCH loca
 - [ ] Service Function
 - [ ] Controller Endpoint
 
-## 8: Our API should be able to retrieve all messages written by a particular user. (Incomplete)
+## 8: Our API should be able to retrieve all messages written by a particular user. (Complete)
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/accounts/{account_id}/messages.
 
 - The response body should contain a JSON representation of a list containing all messages posted by a particular user, which is retrieved from the database. It is expected for the list to simply be empty if there are no messages. The response status should always be 200, which is the default.
 
-- [ ] DAO Function
-- [ ] Service Function
-- [ ] Controller Endpoint
+- [x] DAO Function
+- [x] Service Function
+- [x] Controller Endpoint
 
 # Further guidance
 
