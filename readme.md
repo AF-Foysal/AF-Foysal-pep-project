@@ -62,7 +62,7 @@ As a user, I should be able to submit a new post on the endpoint POST localhost:
 - [ ] Service Function
 - [ ] Controller Endpoint
 
-## 4: Our API should be able to retrieve all messages. (Completed)
+## 4: Our API should be able to retrieve all messages. (Complete)
 
 As a user, I should be able to submit a GET request on the endpoint GET localhost:8080/messages.
 
