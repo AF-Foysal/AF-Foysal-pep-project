@@ -76,5 +76,43 @@ public class AccountDAO {
         return null;
      }
 
+     /**
+      * Username must Exist
+      * Passwords must match
+      * @param account Object to be used for logging in
+      * @return Account Object if successful, otherwise null
+      */
+     public Account loginAccount(Account account){
+        if (findAccount(account) == null){
+            return null;
+        }
+
+        try (Connection connection = ConnectionUtil.getConnection();){
+            String sql = "SELECT * FROM account WHERE username=?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, account.getUsername());
+            
+            ResultSet rs =  preparedStatement.executeQuery();
+
+            Account storedAccount = new Account();
+            while (rs.next()){
+                storedAccount.setAccount_id(rs.getInt("account_id"));
+                storedAccount.setUsername(rs.getString("username"));
+                storedAccount.setPassword(rs.getString("password"));
+
+            if (storedAccount.getPassword().equals(account.getPassword())){
+                return storedAccount;
+            }
+
+        }} catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+
+        }
+        return null;
+        
+     }
 
 }

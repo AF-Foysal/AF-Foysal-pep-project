@@ -40,6 +40,7 @@ public class SocialMediaController {
         app.get("/messages", this::getAllMessagesHandler);
         app.get("/messages/{message_id}", this::getMessageByIDHandler);
         app.post("/register", this::registerAccountHandler);
+        app.post("/login", this::loginAccountHandler);
 
 
 
@@ -94,6 +95,22 @@ public class SocialMediaController {
             context.json(mapper.writeValueAsString(registeredAccount));
         }else{
             context.status(400);
+        }}
+
+        /**
+     * Handler to login account 
+     * @param context object handles information HTTP requests and generates responses within Javalin
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object
+     */
+    private void loginAccountHandler(Context context) throws JsonProcessingException{
+        ObjectMapper mapper = new ObjectMapper();
+        Account account = mapper.readValue(context.body(), Account.class);
+        Account registeredAccount = accountService.loginAccount(account);
+
+        if(registeredAccount!=null){
+            context.json(mapper.writeValueAsString(registeredAccount));
+        }else{
+            context.status(401);
         }
     
     }

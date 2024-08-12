@@ -32,5 +32,14 @@ public class AccountService {
     public Account registerAccount(Account account){
         return accountDAO.registerAccount(account);
     }
+
+    /**
+     * 
+     * @param account to be logged onto
+     * @return Account Object if successful, otherwise null
+     */
+    public Account loginAccount(Account account){
+        return accountDAO.loginAccount(account);
+    }
     
 }
