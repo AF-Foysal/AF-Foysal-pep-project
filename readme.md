@@ -51,7 +51,7 @@ As a user, I should be able to verify my login on the endpoint POST localhost:80
 - [x] Controller Endpoint
 
 
-## 3: Our API should be able to process the creation of new messages. (Incomplete)
+## 3: Our API should be able to process the creation of new messages. (Complete)
 
 As a user, I should be able to submit a new post on the endpoint POST localhost:8080/messages. The request body will contain a JSON representation of a message, which should be persisted to the database, but will not contain a message_id.
 
