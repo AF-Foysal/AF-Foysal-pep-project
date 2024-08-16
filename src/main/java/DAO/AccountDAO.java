@@ -39,6 +39,40 @@ public class AccountDAO {
      }
 
      /**
+      * Helper function to search for existing users based on account_id
+      * @param account_id to be searched
+      * @return true if account_id is valid, else false
+      */
+
+      public boolean accountIdExists(int account_id){
+        try (Connection connection = ConnectionUtil.getConnection();){
+            String sql = "SELECT * FROM account WHERE account_id=?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1, account_id);
+            
+            ResultSet rs =  preparedStatement.executeQuery();
+            Account validAccount = new Account();
+            while (rs.next()){
+                validAccount.setAccount_id(rs.getInt("account_id"));
+                validAccount.setUsername(rs.getString("username"));
+                validAccount.setPassword(rs.getString("password"));
+            }
+
+            if (validAccount != null){
+                return true;
+            }
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+
+        }
+        return false;
+     }
+
+     /**
       * Username must not be blank, 
       * password must be at least length of 4, 
       * username must also be unique (non-existent prior to insertion)

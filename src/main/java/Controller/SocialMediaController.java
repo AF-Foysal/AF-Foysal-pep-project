@@ -41,6 +41,7 @@ public class SocialMediaController {
         app.post("/register", this::registerAccountHandler);
         app.post("/login", this::loginAccountHandler);
         app.get("/accounts/{account_id}/messages", this::getAllMessagesByAccountIDHandler);
+        app.post("/messages", this::createMessageHandler);
 
 
 
@@ -114,6 +115,22 @@ public class SocialMediaController {
     private void getAllMessagesByAccountIDHandler(Context context){
         List<Message> messages = messageService.getAllMessagesByAccountID(Integer.valueOf(context.pathParam("account_id")));
         context.json(messages);
+    }
+
+    /**
+     * Handler to insert text message for a user
+     */
+    private void createMessageHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Message message = mapper.readValue(context.body(), Message.class);
+        Message outputMessage = messageService.addMessage(message);
+
+        if ( (accountService.accountIdExists(message.getPosted_by())) && (outputMessage != null) ){
+            context.json(outputMessage);
+        }
+        else{
+            context.status(400);
+        }
     }
 
 

@@ -41,5 +41,12 @@ public class AccountService {
     public Account loginAccount(Account account){
         return accountDAO.loginAccount(account);
     }
+
+    /**
+     * 
+     */
+    public boolean accountIdExists(int account_id){
+        return accountDAO.accountIdExists(account_id);
+    }
     
 }

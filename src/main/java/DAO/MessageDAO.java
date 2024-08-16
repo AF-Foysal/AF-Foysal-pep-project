@@ -3,10 +3,7 @@ package DAO;
 import Util.ConnectionUtil;
 import Model.Message;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,6 +99,47 @@ public class MessageDAO {
         }
 
         return messages;
+     }
+
+     /**
+      * Message_text should must be 0 < length <= 255
+      * User must exist
+      * @param message object to be inserted into table
+      * @return message if persists, otherwise null
+      */
+
+     public Message createMessage(Message message){
+
+        if ((message.getMessage_text().length() == 0) || (message.getMessage_text().length() > 255)){
+            return null;
+        }
+
+        try (Connection connection = ConnectionUtil.getConnection();){
+            String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setInt(1, message.getPosted_by());
+            preparedStatement.setString(2, message.getMessage_text());
+            preparedStatement.setLong(3, message.getTime_posted_epoch());
+
+            preparedStatement.executeUpdate();
+
+            ResultSet pkeyResultSet = preparedStatement.getGeneratedKeys();
+            if(pkeyResultSet.next()){
+                int generatedMessageID = (int) pkeyResultSet.getLong(1);
+                message.setMessage_id(generatedMessageID);
+            }
+            return message;
+            
+
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
      }
 
 

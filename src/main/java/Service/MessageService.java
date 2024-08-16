@@ -46,4 +46,13 @@ public class MessageService {
         return messageDAO.getAllMessagesByAccountID(account_id);
     }
 
+    /**
+     * 
+     * @param message to be inserted
+     * @return message object if persists
+     */
+    public Message addMessage(Message message){
+        return messageDAO.createMessage(message);
+    }
+
 }
