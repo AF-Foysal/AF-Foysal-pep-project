@@ -14,7 +14,7 @@ public class AccountDAO {
      * @return account if found, else null
      */
 
-     private Account findAccount(Account account){
+     public Account findAccount(Account account){
         try (Connection connection = ConnectionUtil.getConnection();){
             String sql = "SELECT * FROM account WHERE username=?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -81,10 +81,6 @@ public class AccountDAO {
       */
      public Account registerAccount(Account account){
 
-        if ((findAccount(account) != null) || (account.getUsername().length() == 0) || (account.getPassword().length() < 4)){
-            return null;
-        }
-
         try (Connection connection = ConnectionUtil.getConnection();){
             String sql = "INSERT INTO account (username, password) VALUES (?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -117,9 +113,6 @@ public class AccountDAO {
       * @return Account Object if successful, otherwise null
       */
      public Account loginAccount(Account account){
-        if (findAccount(account) == null){
-            return null;
-        }
 
         try (Connection connection = ConnectionUtil.getConnection();){
             String sql = "SELECT * FROM account WHERE username=?;";

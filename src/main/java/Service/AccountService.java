@@ -30,6 +30,9 @@ public class AccountService {
      * @return Account Object if persists, otherwise null
      */
     public Account registerAccount(Account account){
+        if ((accountDAO.findAccount(account) != null) || (account.getUsername().length() == 0) || (account.getPassword().length() < 4)){
+            return null;
+        }
         return accountDAO.registerAccount(account);
     }
 
@@ -39,11 +42,15 @@ public class AccountService {
      * @return Account Object if successful, otherwise null
      */
     public Account loginAccount(Account account){
+        if (accountDAO.findAccount(account) == null){
+            return null;
+        }
         return accountDAO.loginAccount(account);
     }
 
     /**
-     * 
+     * @param account_id ID of the account in question
+     * @return true if account exists, otherwise false
      */
     public boolean accountIdExists(int account_id){
         return accountDAO.accountIdExists(account_id);
