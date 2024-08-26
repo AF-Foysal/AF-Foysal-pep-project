@@ -100,9 +100,9 @@ As a user, I should be able to submit a PATCH request on the endpoint PATCH loca
 - The update of a message should be successful if and only if the message id already exists and the new message_text is not blank and is not over 255 characters. If the update is successful, the response body should contain the full updated message (including message_id, posted_by, message_text, and time_posted_epoch), and the response status should be 200, which is the default. The message existing on the database should have the updated message_text.
 - If the update of the message is not successful for any reason, the response status should be 400. (Client error)
 
-- [ ] DAO Function
-- [ ] Service Function
-- [ ] Controller Endpoint
+- [x] DAO Function
+- [x] Service Function
+- [x] Controller Endpoint
 
 ## 8: Our API should be able to retrieve all messages written by a particular user. (Complete)
 

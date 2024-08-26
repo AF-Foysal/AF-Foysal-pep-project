@@ -55,4 +55,20 @@ public class MessageService {
         return messageDAO.createMessage(message);
     }
 
+
+    /**
+     * Restrictions: 0 < message_text length <= 255, and the message_id must exist 
+     * @param message_id
+     * @param message_text
+     * @return If message persists, the message object, otherwise null
+     */
+    public Message updateMessageText(int message_id, String message_text){
+        if ((messageDAO.getMessageByID(message_id) == null)||(message_text.length() == 0)||(message_text.length() > 255)){
+            return null;
+        }
+        messageDAO.updateMessageText(message_id, message_text);
+        return messageDAO.getMessageByID(message_id);
+        
+
+}
 }
