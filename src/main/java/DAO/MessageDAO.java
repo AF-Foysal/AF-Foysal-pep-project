@@ -108,10 +108,6 @@ public class MessageDAO {
 
     public Message createMessage(Message message) {
 
-        if ((message.getMessage_text().length() == 0) || (message.getMessage_text().length() > 255)) {
-            return null;
-        }
-
         try (Connection connection = ConnectionUtil.getConnection();) {
             String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

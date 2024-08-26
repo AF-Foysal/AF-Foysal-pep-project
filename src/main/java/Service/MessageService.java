@@ -52,6 +52,9 @@ public class MessageService {
      * @return message object if persists
      */
     public Message addMessage(Message message){
+        if ((message.getMessage_text().length() == 0) || (message.getMessage_text().length() > 255)) {
+            return null;
+        }
         return messageDAO.createMessage(message);
     }
 
