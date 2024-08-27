@@ -157,4 +157,19 @@ public class MessageDAO {
         }
     }
 
+    public void deleteMessageByID(int message_id) {
+
+        try (Connection connection = ConnectionUtil.getConnection();) {
+            String sql = "DELETE FROM message WHERE message_id=?;";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, message_id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 }
