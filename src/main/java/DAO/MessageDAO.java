@@ -157,6 +157,10 @@ public class MessageDAO {
         }
     }
 
+    /**
+     * Delete Message from message table
+     * @param message_id of message to be deleted
+     */
     public void deleteMessageByID(int message_id) {
 
         try (Connection connection = ConnectionUtil.getConnection();) {

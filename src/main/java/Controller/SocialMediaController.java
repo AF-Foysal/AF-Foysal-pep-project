@@ -101,7 +101,6 @@ public class SocialMediaController {
 
     /**
      * Handler to login account
-     * 
      * @param context object handles information HTTP requests and generates
      *                responses within Javalin
      * @throws JsonProcessingException will be thrown if there is an issue
@@ -122,7 +121,6 @@ public class SocialMediaController {
 
     /**
      * Handler to retrieve all messages by account_id
-     * 
      * @param context the context object
      */
     private void getAllMessagesByAccountIDHandler(Context context) {
@@ -147,7 +145,7 @@ public class SocialMediaController {
     }
 
     /**
-     * 
+     * Update Message Text Handler
      * @param context context Object
      * @throws JsonProcessingException
      */
@@ -165,6 +163,11 @@ public class SocialMediaController {
 
     }
 
+    /**
+     * Delete Message by ID Handler
+     * @param context
+     * @throws JsonProcessingException
+     */
     private void deleteMessageByIDHandler(Context context) throws JsonProcessingException {
         Message message = messageService.deleteMessageByID(Integer.valueOf(context.pathParam("message_id")));
         if (message == null){
